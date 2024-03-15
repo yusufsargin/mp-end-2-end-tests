@@ -1,4 +1,4 @@
-package page.project_list;
+package page.projectList;
 
 import com.microsoft.playwright.*;
 import org.junit.jupiter.api.*;
@@ -19,8 +19,9 @@ public class ProjectListPageTest {
     @BeforeAll
     static void launchBrowser() {
         playwright = Playwright.create();
-        browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
-                .setHeadless(false)
+        browser = playwright.chromium().launch(
+                new BrowserType.LaunchOptions()
+                //.setHeadless(false)
                 .setSlowMo(100));
         factory = new BrowserContextFactory(browser);
     }

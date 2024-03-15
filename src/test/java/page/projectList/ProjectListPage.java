@@ -1,4 +1,4 @@
-package page.project_list;
+package page.projectList;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;

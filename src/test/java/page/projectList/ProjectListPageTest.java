@@ -2,38 +2,36 @@ package page.projectList;
 
 import com.microsoft.playwright.*;
 import org.junit.jupiter.api.*;
-import utils.BrowserContextFactory;
+import utils.ContextFactory;
+
+import java.net.URISyntaxException;
 
 public class ProjectListPageTest {
     // Shared between all tests in this class.
-    static Playwright playwright;
-    static Browser browser;
+    static ContextFactory contextFactory;
 
     // New instance for each test method.
     BrowserContext context;
     Page page;
     ProjectListPage projectListPage;
 
-    static BrowserContextFactory factory;
-
     @BeforeAll
-    static void launchBrowser() {
-        playwright = Playwright.create();
-        browser = playwright.chromium().launch(
-                new BrowserType.LaunchOptions()
-                //.setHeadless(false)
-                .setSlowMo(100));
-        factory = new BrowserContextFactory(browser);
+    static void startBrowser(){
+        contextFactory = new ContextFactory();
     }
 
     @AfterAll
     static void closeBrowser() {
-        playwright.close();
+        contextFactory.close();
     }
 
     @BeforeEach
-    void createContextAndPage() {
-        context = factory.getAuthenticatedContext();
+    void createContextAndPage() throws URISyntaxException {
+        context = contextFactory.getContext(
+                new BrowserType.LaunchOptions()
+                        .setHeadless(false)
+                        .setSlowMo(100)
+        );
         page = context.newPage();
         projectListPage = new ProjectListPage(page);
     }
@@ -44,7 +42,7 @@ public class ProjectListPageTest {
     }
 
     @Test
-    void shouldShowProjectList() {
+    void shouldShowProjectList() throws URISyntaxException {
         projectListPage.navigate();
 
         // Check should empty

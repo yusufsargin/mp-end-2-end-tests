@@ -18,30 +18,19 @@ import java.util.Map;
 public class LoginUtils {
     static private final String API_TOKEN = System.getenv("API_TOKEN");
     static private final Playwright playwright = Playwright.create();
-    static public final URI BASE_URL;
+    static private final PropertyUtils propertyUtils = new PropertyUtils();
 
-    static {
-        try {
-            BASE_URL = new URI(System.getenv("BASE_URL"));
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static public final String BE_BASE_URL = System.getenv("BE_BASE_URL");
-    static private final String email = System.getenv("USER_EMAIL");
-
-    public static String getUserToken() {
+    public static String getUserToken() throws URISyntaxException {
         Map<String, String> headers = new HashMap<>();
 
         headers.put("x-playwright-api-token", API_TOKEN);
 
         APIRequestContext context = playwright.request().newContext(new APIRequest.NewContextOptions()
-                .setBaseURL(BE_BASE_URL)
+                .setBaseURL(propertyUtils.getBaseBackendUri().toString())
                 .setExtraHTTPHeaders(headers));
 
         Gson gson = new Gson();
-        String json = context.post("/webapi/user/test/signIn?email=" + email, RequestOptions.create()).text();
+        String json = context.post("/webapi/user/test/signIn?email=" + propertyUtils.getUserEmail(), RequestOptions.create()).text();
         TokenResponseDto responseDto = gson.fromJson(json, TokenResponseDto.class);
 
         return responseDto.getMessage();

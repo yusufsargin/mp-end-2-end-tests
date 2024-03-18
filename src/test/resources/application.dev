@@ -1,0 +1,4 @@
+base-url=http://localhost:3000
+browser-type=chrome
+base-backend-url=http://localhost:5001
+user-email=yusufsargin9@gmail.com

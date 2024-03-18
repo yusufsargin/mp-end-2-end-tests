@@ -1,21 +1,27 @@
 package page.projectList;
 
+import abstracts.CommonPage;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import utils.LoginUtils;
+import utils.PropertyUtils;
+
+import java.net.URISyntaxException;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-public class ProjectListPage {
+public class ProjectListPage extends CommonPage {
     private final Page page;
+    private final PropertyUtils propertyUtils = new PropertyUtils();
 
     public ProjectListPage(Page page) {
         this.page = page;
     }
 
-    public void navigate(){
-        page.navigate(LoginUtils.BASE_URL + "/projects");
+    @Override
+    public void navigate() throws URISyntaxException {
+        page.navigate(propertyUtils.getBaseUri().toString() + "/projects");
     }
 
     public Locator getCreateProjectButton() {

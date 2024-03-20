@@ -4,7 +4,6 @@ import abstracts.CommonPage;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
-import utils.LoginUtils;
 import utils.PropertyUtils;
 
 import java.net.URISyntaxException;

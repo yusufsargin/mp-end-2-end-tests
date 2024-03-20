@@ -31,7 +31,9 @@ public class PropertyUtils {
     }
 
     public URI getBaseBackendUri() throws URISyntaxException {
-        return new URI(properties.getProperty("base-backend-url"));
+        var baseBEProperty = properties.getProperty("base-backend-url");
+
+        return baseBEProperty != null ? new URI(baseBEProperty): getBaseUri();
     }
 
     public String getUserEmail(){

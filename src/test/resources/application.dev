@@ -1,4 +1,3 @@
-base-url=http://localhost:3000
+base-url=https://stg.mobilyaplan.app
 browser-type=chrome
-base-backend-url=http://localhost:5001
-user-email=yusufsargin9@gmail.com
+user-email=yusufsargin@gmail.com
